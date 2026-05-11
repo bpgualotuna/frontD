@@ -6,4 +6,4 @@
  *
  * For local development: 'http://localhost:80/api'
  */
-window.API_BASE = 'https://back-d.vercel.app/api';
+window.API_BASE = 'https://studenthub-backend.onrender.com/api';
