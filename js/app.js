@@ -1,21 +1,12 @@
-/**
- * app.js — Student Management System
- * Handles: API communication, computed values, DOM rendering.
- *
- * Computed values (JavaScript):
- *   - Age (from dateOfBirth)
- *   - Academic Standing (from GPA)
- *   - Degree Progress % (from creditsCompleted / 120)
- *   - Dashboard aggregates (avg GPA, honor roll count, etc.)
- */
+
 
 'use strict';
 
-// ── Configuration ──────────────────────────────────────────────────────────
-// API_BASE is set in js/config.js — update that file for each environment.
+
+
 const API_BASE = window.API_BASE ?? 'http://localhost:80/api';
 
-// ── DOM references ─────────────────────────────────────────────────────────
+
 const registerForm      = document.getElementById('register-form');
 const searchInput       = document.getElementById('search-id-input');
 const searchBtn         = document.getElementById('search-btn');
@@ -26,21 +17,17 @@ const searchResultCard  = document.getElementById('search-result-card');
 const formAlert         = document.getElementById('form-alert');
 const toastContainer    = document.getElementById('toast-container');
 
-// ── Stat counters ──────────────────────────────────────────────────────────
+
 const statTotal      = document.getElementById('stat-total');
 const statAvgGpa     = document.getElementById('stat-avg-gpa');
 const statHonorRoll  = document.getElementById('stat-honor-roll');
 const statActive     = document.getElementById('stat-active');
 
-// ═══════════════════════════════════════════════════════════════════════════
-// COMPUTED VALUE FUNCTIONS  (pure — no side effects)
-// ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Calculates the age of a student based on their date of birth.
- * @param {string} dateOfBirth — ISO date string (YYYY-MM-DD)
- * @returns {number} age in full years
- */
+
+
+
+
 function computeAge(dateOfBirth) {
   const today = new Date();
   const birth = new Date(dateOfBirth);
@@ -52,33 +39,20 @@ function computeAge(dateOfBirth) {
   return age;
 }
 
-/**
- * Determines the academic standing label based on GPA.
- * @param {number} gpa — between 0.0 and 4.0
- * @returns {{ label: string, cssClass: string }}
- */
+
 function computeAcademicStanding(gpa) {
   if (gpa >= 3.5) return { label: 'Honor Roll', cssClass: 'badge-honor' };
   if (gpa >= 2.0) return { label: 'Good Standing', cssClass: 'badge-good' };
   return { label: 'Probation', cssClass: 'badge-probation' };
 }
 
-/**
- * Calculates the percentage of degree completion.
- * Assumes 120 total credits required for graduation.
- * @param {number} creditsCompleted
- * @returns {number} percentage 0–100 (capped at 100)
- */
+
 function computeDegreeProgress(creditsCompleted) {
   const TOTAL_CREDITS = 120;
   return Math.min(Math.round((creditsCompleted / TOTAL_CREDITS) * 100), 100);
 }
 
-/**
- * Computes dashboard aggregates from an array of student objects.
- * @param {Array} students
- * @returns {{ total, averageGpa, honorRollCount, activeCount }}
- */
+
 function computeDashboardStats(students) {
   if (!students.length) {
     return { total: 0, averageGpa: '—', honorRollCount: 0, activeCount: 0 };
@@ -92,15 +66,11 @@ function computeDashboardStats(students) {
   return { total, averageGpa, honorRollCount, activeCount };
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// API LAYER
-// ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Sends a POST request to register a new student.
- * @param {Object} studentData
- * @returns {Promise<Object>} API response
- */
+
+
+
+
 async function apiCreateStudent(studentData) {
   const response = await fetch(`${API_BASE}/students`, {
     method:  'POST',
@@ -110,34 +80,23 @@ async function apiCreateStudent(studentData) {
   return response.json();
 }
 
-/**
- * Fetches a student by their numeric ID.
- * @param {string} id
- * @returns {Promise<Object>} API response
- */
+
 async function apiFindStudentById(id) {
   const response = await fetch(`${API_BASE}/students/${id}`);
   return response.json();
 }
 
-/**
- * Fetches all students.
- * @returns {Promise<Object>} API response
- */
+
 async function apiFetchAllStudents() {
   const response = await fetch(`${API_BASE}/students`);
   return response.json();
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// RENDERING
-// ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Builds the enrollment status badge HTML.
- * @param {string} status
- * @returns {string} HTML string
- */
+
+
+
+
 function renderStatusBadge(status) {
   const map = {
     Active:    'badge-active',
@@ -148,11 +107,7 @@ function renderStatusBadge(status) {
   return `<span class="badge ${cls}">${status}</span>`;
 }
 
-/**
- * Renders a single student row into the table body.
- * @param {Object} student
- * @returns {string} HTML string for <tr>
- */
+
 function renderStudentRow(student) {
   const age       = computeAge(student.dateOfBirth);
   const standing  = computeAcademicStanding(Number(student.gpa));
@@ -178,10 +133,7 @@ function renderStudentRow(student) {
   `;
 }
 
-/**
- * Populates the students table and updates dashboard stats.
- * @param {Array} students
- */
+
 function renderStudentsTable(students) {
   if (!students.length) {
     studentsTableBody.innerHTML = `
@@ -198,10 +150,7 @@ function renderStudentsTable(students) {
   updateDashboardStats(students);
 }
 
-/**
- * Updates the top-level stat cards.
- * @param {Array} students
- */
+
 function updateDashboardStats(students) {
   const stats = computeDashboardStats(students);
   statTotal.textContent     = stats.total;
@@ -210,10 +159,7 @@ function updateDashboardStats(students) {
   statActive.textContent    = stats.activeCount;
 }
 
-/**
- * Renders the search result detail card.
- * @param {Object} student
- */
+
 function renderSearchResult(student) {
   const age      = computeAge(student.dateOfBirth);
   const standing = computeAcademicStanding(Number(student.gpa));
@@ -235,18 +181,13 @@ function renderSearchResult(student) {
   searchResultCard.classList.add('show');
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// TOAST NOTIFICATIONS
-// ═══════════════════════════════════════════════════════════════════════════
+
+
+
 
 const TOAST_ICONS = { success: '✅', error: '❌', info: 'ℹ️' };
 
-/**
- * Shows a temporary toast message.
- * @param {string} message
- * @param {'success'|'error'|'info'} type
- * @param {number} duration — ms before auto-dismiss
- */
+
 function showToast(message, type = 'info', duration = 3500) {
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
@@ -259,9 +200,9 @@ function showToast(message, type = 'info', duration = 3500) {
   }, duration);
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// FORM UTILITIES
-// ═══════════════════════════════════════════════════════════════════════════
+
+
+
 
 function showFormAlert(message, type = 'error') {
   formAlert.className = `alert alert-${type} show`;
@@ -280,7 +221,7 @@ function setButtonLoading(btn, loading) {
     : btn.dataset.original;
 }
 
-/** Prevents XSS when inserting user content into innerHTML */
+
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -305,9 +246,9 @@ function collectFormData() {
   };
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// EVENT HANDLERS
-// ═══════════════════════════════════════════════════════════════════════════
+
+
+
 
 registerForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -323,7 +264,7 @@ registerForm.addEventListener('submit', async (event) => {
     if (result.success) {
       showToast(`Student "${studentData.firstName} ${studentData.lastName}" registered! `, 'success');
       registerForm.reset();
-      await handleLoadAll(); // refresh table
+      await handleLoadAll(); 
     } else {
       showFormAlert(result.message ?? 'Could not register student.');
     }
@@ -384,5 +325,5 @@ async function handleLoadAll() {
 
 loadAllBtn.addEventListener('click', handleLoadAll);
 
-// Auto-load on page ready
+
 document.addEventListener('DOMContentLoaded', handleLoadAll);

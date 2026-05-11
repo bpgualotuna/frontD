@@ -1,11 +1,8 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   Student Management System — styles.css
-   Design: Dark theme + Glassmorphism + Violet accent
-   ═══════════════════════════════════════════════════════════════════════════ */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* ── Design Tokens ─────────────────────────────────────────────────────── */
+
 :root {
   --bg-base:          #07070f;
   --bg-surface:       #0f0f1a;
@@ -38,7 +35,7 @@
   --transition:       all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Reset & Base ──────────────────────────────────────────────────────── */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -54,14 +51,14 @@ body {
     radial-gradient(ellipse 60% 40% at 80% 110%, rgba(109,40,217,0.12) 0%, transparent 60%);
 }
 
-/* ── Layout ────────────────────────────────────────────────────────────── */
+
 .page-wrapper {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px 60px;
 }
 
-/* ── Header ────────────────────────────────────────────────────────────── */
+
 .site-header {
   display: flex;
   align-items: center;
@@ -113,7 +110,7 @@ body {
   text-transform: uppercase;
 }
 
-/* ── Hero ───────────────────────────────────────────────────────────────── */
+
 .hero {
   text-align: center;
   padding: 20px 0 50px;
@@ -148,7 +145,7 @@ body {
   margin: 0 auto;
 }
 
-/* ── Stats Grid ─────────────────────────────────────────────────────────── */
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -201,7 +198,7 @@ body {
   margin-top: 4px;
 }
 
-/* ── Section titles ─────────────────────────────────────────────────────── */
+
 .section-title {
   font-size: 1.1rem;
   font-weight: 700;
@@ -219,7 +216,7 @@ body {
   background: var(--border-glass);
 }
 
-/* ── Glass Card ─────────────────────────────────────────────────────────── */
+
 .glass-card {
   background: var(--bg-card);
   border: 1px solid var(--border-glass);
@@ -231,7 +228,7 @@ body {
   box-shadow: var(--shadow-card);
 }
 
-/* ── Form Grid ──────────────────────────────────────────────────────────── */
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -280,7 +277,7 @@ select option { background: #1a1a2e; color: var(--text-primary); }
   color: var(--text-muted);
 }
 
-/* ── Buttons ────────────────────────────────────────────────────────────── */
+
 .btn-row {
   display: flex;
   gap: 12px;
@@ -329,7 +326,7 @@ select option { background: #1a1a2e; color: var(--text-primary); }
   background: rgba(124,58,237,0.08);
 }
 
-/* ── Search bar ─────────────────────────────────────────────────────────── */
+
 .search-row {
   display: flex;
   gap: 12px;
@@ -358,7 +355,7 @@ select option { background: #1a1a2e; color: var(--text-primary); }
   padding-left: 42px;
 }
 
-/* ── Table ──────────────────────────────────────────────────────────────── */
+
 .table-wrapper {
   overflow-x: auto;
   border-radius: var(--radius-md);
@@ -405,7 +402,7 @@ tbody td {
 
 .td-muted { color: var(--text-secondary); font-size: 0.82rem; }
 
-/* ── Badges ─────────────────────────────────────────────────────────────── */
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -426,7 +423,7 @@ tbody td {
 .badge-inactive   { background: rgba(248,113,113,0.12); color: var(--danger);  border: 1px solid rgba(248,113,113,0.25); }
 .badge-graduated  { background: rgba(251,191,36,0.12);  color: var(--warning); border: 1px solid rgba(251,191,36,0.25); }
 
-/* ── Progress bar ───────────────────────────────────────────────────────── */
+
 .progress-wrap {
   display: flex;
   align-items: center;
@@ -456,7 +453,7 @@ tbody td {
   text-align: right;
 }
 
-/* ── Toast notifications ────────────────────────────────────────────────── */
+
 #toast-container {
   position: fixed;
   bottom: 28px;
@@ -497,7 +494,7 @@ tbody td {
   to   { opacity: 0; transform: translateY(10px); }
 }
 
-/* ── Loading spinner ────────────────────────────────────────────────────── */
+
 .spinner {
   width: 18px;
   height: 18px;
@@ -510,7 +507,7 @@ tbody td {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Empty state ────────────────────────────────────────────────────────── */
+
 .empty-state {
   text-align: center;
   padding: 60px 20px;
@@ -520,7 +517,7 @@ tbody td {
 .empty-state .empty-icon { font-size: 3rem; margin-bottom: 14px; opacity: 0.4; }
 .empty-state p { font-size: 0.9rem; }
 
-/* ── Alert box ──────────────────────────────────────────────────────────── */
+
 .alert {
   padding: 14px 18px;
   border-radius: var(--radius-md);
@@ -533,7 +530,7 @@ tbody td {
 .alert-error   { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3); color: var(--danger); }
 .alert-success { background: rgba(52,211,153,0.1);  border: 1px solid rgba(52,211,153,0.3);  color: var(--success); }
 
-/* ── Highlight result ───────────────────────────────────────────────────── */
+
 .result-card {
   background: rgba(124,58,237,0.08);
   border: 1px solid rgba(124,58,237,0.25);
@@ -548,7 +545,7 @@ tbody td {
 .result-field label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 .result-field p { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-top: 3px; }
 
-/* ── Footer ─────────────────────────────────────────────────────────────── */
+
 footer {
   text-align: center;
   padding: 28px 0 10px;
@@ -557,7 +554,7 @@ footer {
   font-size: 0.8rem;
 }
 
-/* ── Responsive ─────────────────────────────────────────────────────────── */
+
 @media (max-width: 640px) {
   .glass-card { padding: 20px; }
   .site-header { flex-direction: column; gap: 14px; text-align: center; }
