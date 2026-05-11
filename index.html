@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Student Management System — manage university student records with real-time computed metrics." />
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+</head>
+<body>
+
+<div id="toast-container"></div>
+
+<div class="page-wrapper">
+
+  
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-icon">🎓</div>
+      <div class="brand-name">Student<span>Hub</span></div>
+    </div>
+    <span class="header-badge">Management System</span>
+  </header>
+
+  
+  <section class="hero">
+    <h1>
+      Manage Your<br />
+      <span class="gradient-text">Student Records</span>
+    </h1>
+    <p>Register, search, and track university students with real-time academic metrics computed automatically.</p>
+  </section>
+
+  
+  <div class="stats-grid" aria-label="Dashboard statistics">
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-value" id="stat-total">—</div>
+      <div class="stat-label">Total Students</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-value" id="stat-avg-gpa">—</div>
+      <div class="stat-label">Average GPA</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-value" id="stat-honor-roll">—</div>
+      <div class="stat-label">Honor Roll</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <div class="stat-value" id="stat-active">—</div>
+      <div class="stat-label">Active Students</div>
+    </div>
+  </div>
+
+  
+  <section aria-labelledby="register-title">
+    <h2 class="section-title" id="register-title">✏️ Register New Student</h2>
+
+    <div class="glass-card">
+      <div id="form-alert" class="alert" role="alert"></div>
+
+      <form id="register-form" novalidate>
+        <div class="form-grid">
+
+          <!-- firstName -->
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input id="firstName" name="firstName" type="text"
+                   placeholder="e.g. Maria" required autocomplete="given-name" />
+          </div>
+
+          <!-- lastName -->
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input id="lastName" name="lastName" type="text"
+                   placeholder="e.g. Rodriguez" required autocomplete="family-name" />
+          </div>
+
+          <!-- email -->
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input id="email" name="email" type="email"
+                   placeholder="student@university.edu" required autocomplete="email" />
+          </div>
+
+          <!-- phone -->
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel"
+                   placeholder="+593 99 123 4567" required autocomplete="tel" />
+          </div>
+
+          <!-- dateOfBirth -->
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input id="dateOfBirth" name="dateOfBirth" type="date" required />
+            <span class="field-hint">Used to auto-compute age</span>
+          </div>
+
+          <!-- gender -->
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="">— Select —</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Non-binary">Non-binary</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+
+          <!-- major -->
+          <div class="form-group">
+            <label for="major">Major / Area of Study</label>
+            <input id="major" name="major" type="text"
+                   placeholder="e.g. Computer Science" required />
+          </div>
+
+          <!-- gpa -->
+          <div class="form-group">
+            <label for="gpa">GPA</label>
+            <input id="gpa" name="gpa" type="number"
+                   placeholder="0.00 – 4.00" min="0" max="4" step="0.01" required />
+            <span class="field-hint">Used to compute academic standing</span>
+          </div>
+
+          <!-- enrollmentStatus -->
+          <div class="form-group">
+            <label for="enrollmentStatus">Enrollment Status</label>
+            <select id="enrollmentStatus" name="enrollmentStatus" required>
+              <option value="">— Select —</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+              <option value="Graduated">Graduated</option>
+            </select>
+          </div>
+
+          <!-- creditsCompleted -->
+          <div class="form-group">
+            <label for="creditsCompleted">Credits Completed</label>
+            <input id="creditsCompleted" name="creditsCompleted" type="number"
+                   placeholder="0 – 120" min="0" max="200" required />
+            <span class="field-hint">Used to compute degree progress %</span>
+          </div>
+
+          <!-- address — full width -->
+          <div class="form-group full-width">
+            <label for="address">Home Address</label>
+            <input id="address" name="address" type="text"
+                   placeholder="Street, City, Country" required autocomplete="street-address" />
+          </div>
+
+        </div><!-- /form-grid -->
+
+        <div class="btn-row">
+          <button id="submit-btn" type="submit" class="btn btn-primary">
+            🎓 Register Student
+          </button>
+          <button type="reset" class="btn btn-outline" onclick="document.getElementById('form-alert').className='alert'">
+            ✕ Clear Form
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  
+  <section aria-labelledby="search-title">
+    <h2 class="section-title" id="search-title">🔍 Find Student by ID</h2>
+
+    <div class="glass-card">
+      <div class="search-row">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔎</span>
+          <input id="search-id-input" type="text"
+                 placeholder="Enter MongoDB ObjectId (24-char hex)…"
+                 aria-label="Student ID search" />
+        </div>
+        <button id="search-btn" class="btn btn-primary">🔍 Search</button>
+      </div>
+
+      
+      <div id="search-result-card" class="result-card" role="region" aria-label="Search result">
+        <div class="result-field"><label>Full Name</label><p id="res-name">—</p></div>
+        <div class="result-field"><label>Email</label><p id="res-email">—</p></div>
+        <div class="result-field"><label>Phone</label><p id="res-phone">—</p></div>
+        <div class="result-field"><label>Major</label><p id="res-major">—</p></div>
+        <div class="result-field"><label>Date of Birth</label><p id="res-dob">—</p></div>
+        <div class="result-field"><label>Age (computed)</label><p id="res-age">—</p></div>
+        <div class="result-field"><label>GPA</label><p id="res-gpa">—</p></div>
+        <div class="result-field"><label>Standing (computed)</label><p id="res-standing">—</p></div>
+        <div class="result-field"><label>Credits</label><p id="res-credits">—</p></div>
+        <div class="result-field"><label>Progress (computed)</label><p id="res-progress">—</p></div>
+        <div class="result-field"><label>Status</label><p id="res-status">—</p></div>
+        <div class="result-field"><label>Address</label><p id="res-address">—</p></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section aria-labelledby="all-title">
+    <h2 class="section-title" id="all-title">📋 All Students</h2>
+
+    <div class="glass-card">
+      <div class="btn-row" style="margin-bottom: 20px;">
+        <button id="load-all-btn" class="btn btn-primary">🔄 Refresh</button>
+      </div>
+
+      <div id="table-container" class="table-wrapper">
+        <table aria-label="Students list">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Major</th>
+              <th>Age ⚡</th>
+              <th>GPA</th>
+              <th>Standing ⚡</th>
+              <th>Progress ⚡</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="students-tbody">
+            <tr>
+              <td colspan="9">
+                <div class="empty-state">
+                  <div class="empty-icon">⏳</div>
+                  <p>Loading students…</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px; font-size:0.75rem; color:var(--text-muted);">
+        ⚡ Columns marked with ⚡ are computed in real-time by JavaScript — not stored in the database.
+      </p>
+    </div>
+  </section>
+
+</div><!-- /page-wrapper -->
+
+
+<footer>
+  <p>StudentHub &copy; 2025 · Built with PHP OOP + MongoDB Atlas + Vanilla JS · Clean Code</p>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
